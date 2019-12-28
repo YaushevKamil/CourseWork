@@ -23,9 +23,9 @@ private:
     Window*     window;
     Input*      input;
 
-    Camera*     m_camera;
+    Camera*     camera;
     Light*      light;
-//    World*      m_world;
+//    World*      world;
 
     Shader* botShader;
     Shader* planeShader;

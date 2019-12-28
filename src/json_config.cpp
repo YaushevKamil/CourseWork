@@ -43,7 +43,7 @@ bool JSONConfig::readConfig() {
     right_side_texture  = json_tree.get<std::string>("skybox.texture.right");
     left_side_texture   = json_tree.get<std::string>("skybox.texture.left");
     top_side_texture    = json_tree.get<std::string>("skybox.texture.top");
-    bottom_side_texture = json_tree.get<std::string>("skybox.texture.bottom");
+    bottoside_texture = json_tree.get<std::string>("skybox.texture.bottom");
     front_side_texture  = json_tree.get<std::string>("skybox.texture.front");
     back_side_texture   = json_tree.get<std::string>("skybox.texture.back");
 

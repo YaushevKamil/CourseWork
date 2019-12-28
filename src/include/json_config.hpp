@@ -44,7 +44,7 @@ struct JSONConfig {
     std::string right_side_texture;
     std::string left_side_texture;
     std::string top_side_texture;
-    std::string bottom_side_texture;
+    std::string bottoside_texture;
     std::string front_side_texture;
     std::string back_side_texture;
 

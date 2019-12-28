@@ -42,7 +42,7 @@ void Engine::setupShader() {
 }
 
 void Engine::setupCamera() {
-    m_camera = new Camera(config->window_width,
+    camera = new Camera(config->window_width,
                           config->window_height,
                           glm::vec3(0.0f, 3.0f, 6.0f),
                           terrainShader,
@@ -62,11 +62,11 @@ void Engine::setupLight() {
 }
 
 void Engine::setupInput() {
-    input = new Input(window->window, m_camera);
+    input = new Input(window->window, camera);
 }
 
 //void Engine::createWorld() {
-////    m_world = new World(config,
+////    world = new World(config,
 ////                        terrainShader,
 ////                        botShader,
 ////                        planeShader,
@@ -84,8 +84,8 @@ void Engine::startGame() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         input->processInput(&deltaTime);
-        m_camera->updateViewProjMatrix();
-//        m_world->draw();
+        camera->updateViewProjMatrix();
+//        world->draw();
 
         glfwSwapBuffers(window->window);
         glfwPollEvents();
@@ -96,9 +96,9 @@ Engine::~Engine() {
     delete config;
     delete window;
     delete input;
-    delete m_camera;
+    delete camera;
     delete light;
-//    delete m_world;
+//    delete world;
     delete botShader;
     delete planeShader;
     delete skyboxShader;
