@@ -4,5 +4,5 @@ project(CourseWork)
 set(CMAKE_CXX_STANDARD 14)
 set(OpenGlLinkers -lGL -lglfw -lGLU -lGLEW -lSOIL -lassimp)
 
-add_executable(CourseWork src/main.cpp src/include/engine.hpp src/include/camera.hpp src/include/shader.hpp src/shader.cpp src/include/json_config.hpp)
+add_executable(CourseWork src/main.cpp src/include/engine.hpp src/include/camera.hpp src/include/shader.hpp src/shader.cpp src/include/json_config.hpp src/json_config.cpp)
 target_link_libraries(CourseWork ${OpenGlLinkers})
