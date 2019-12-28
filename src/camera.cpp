@@ -18,8 +18,6 @@ Camera::Camera(GLint window_width,
         MovementSpeed(SPEED),
         MouseSensitivity(SENSITIVITY),
         Zoom(ZOOM) {
-    this->window_width  = window_width;
-    this->window_height = window_height;
     this->Pitch = PITCH;
     this->Yaw = YAW;
     this->Position = position;
@@ -53,12 +51,12 @@ void Camera::ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime) {
     }
 }
 
-void Camera::ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset) {
-    xoffset *= MouseSensitivity;
-    yoffset *= MouseSensitivity;
+void Camera::ProcessMouseMovement(GLfloat xOffset, GLfloat yOffset) {
+    xOffset *= MouseSensitivity;
+    yOffset *= MouseSensitivity;
 
-    Yaw   += xoffset;
-    Pitch += yoffset;
+    Yaw   += xOffset;
+    Pitch += yOffset;
 
     if (Pitch >  89.0f) Pitch =  89.0f;
     if (Pitch < -89.0f) Pitch = -89.0f;
@@ -66,9 +64,9 @@ void Camera::ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset) {
     updateCameraVectors();
 }
 
-void Camera::ProcessMouseScroll(GLfloat yoffset) {
+void Camera::ProcessMouseScroll(GLfloat yOffset) {
     if (Zoom >= 1.0f && Zoom <= 45.0f)
-        Zoom -= yoffset;
+        Zoom -= yOffset;
     if (Zoom <= 1.0f)  Zoom = 1.0f;
     if (Zoom >= 45.0f) Zoom = 45.0f;
 }

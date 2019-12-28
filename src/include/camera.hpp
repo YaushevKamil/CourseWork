@@ -36,9 +36,6 @@ public:
     GLfloat MouseSensitivity;
     GLfloat Zoom;
 
-    GLint window_width;
-    GLint window_height;
-
     Camera(GLint window_width,
            GLint window_height,
            glm::vec3 position,
@@ -51,8 +48,8 @@ public:
     glm::mat4 GetViewMatrix();
 
     void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime);
-    void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset);
-    void ProcessMouseScroll(GLfloat yoffset);
+    void ProcessMouseMovement(GLfloat xOffset, GLfloat yOffset);
+    void ProcessMouseScroll(GLfloat yOffset);
     void updateViewProjMatrix();
 
 private:

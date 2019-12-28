@@ -1,8 +1,8 @@
 #include "include/input.hpp"
 
 Camera* camera;
-GLfloat last_mouse_xoffset = 0.0f;
-GLfloat last_mouse_yoffset = 0.0f;
+GLfloat lastMouseXOffset = 0.0f;
+GLfloat lastMouseYOffset = 0.0f;
 
 bool keys[1024];
 bool firstMouse = true;
@@ -22,9 +22,9 @@ void Input::processInput(GLfloat* delta_time) {
     if (keys[GLFW_KEY_D]) { camera->ProcessKeyboard(RIGHT,    *delta_time); }
 }
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods) {
     prefix_unused(window);
-    prefix_unused(scancode);
+    prefix_unused(scanCode);
     prefix_unused(mods);
 
     if ((action == GLFW_PRESS) && (key >= 0) && (key < 1024)) {
@@ -34,27 +34,27 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     }
 }
 
-void mouseCallback(GLFWwindow* window, double xpos, double ypos) {
+void mouseCallback(GLFWwindow* window, double xPos, double yPos) {
     prefix_unused(window);
 
     if (firstMouse) {
-        last_mouse_xoffset = xpos;
-        last_mouse_yoffset = ypos;
+        lastMouseXOffset = xPos;
+        lastMouseYOffset = yPos;
         firstMouse = false;
     }
 
-    GLfloat mouse_xoffset = xpos - last_mouse_xoffset;
-    GLfloat mouse_yoffset = last_mouse_yoffset - ypos;
+    GLfloat mouseXOffset = xPos - lastMouseXOffset;
+    GLfloat mouseYOffset = lastMouseYOffset - yPos;
 
-    last_mouse_xoffset = xpos;
-    last_mouse_yoffset = ypos;
+    lastMouseXOffset = xPos;
+    lastMouseYOffset = yPos;
 
-    camera->ProcessMouseMovement(mouse_xoffset, mouse_yoffset);
+    camera->ProcessMouseMovement(mouseXOffset, mouseYOffset);
 }
 
-void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+void scrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
     prefix_unused(window);
-    prefix_unused(xoffset);
+    prefix_unused(xOffset);
 
-    camera->ProcessMouseScroll(yoffset);
+    camera->ProcessMouseScroll(yOffset);
 }

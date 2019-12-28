@@ -9,7 +9,7 @@ Window::Window(JSONConfig *config) : window_name(config->window_name),
 
 bool Window::init() {
     if (glfwInit() != GL_TRUE) {
-        std::cout << "ERROR::GLFW_INITIALIZATION_FALIED" << std::endl;
+        std::cout << "ERROR::GLFW_INITIALIZATION_FAILED" << std::endl;
         return false;
     }
 
@@ -24,7 +24,7 @@ bool Window::init() {
                               nullptr, nullptr);
 
     if (window == nullptr) {
-        std::cout << "ERROR::FALIED_TO_CREATE_GLFW_WINDOW" << std::endl;
+        std::cout << "ERROR::FAILED_TO_CREATE_GLFW_WINDOW" << std::endl;
         return false;
     }
 
@@ -39,7 +39,7 @@ bool Window::init() {
     GLint GlewInitResult = glewInit();
     bool err2 = (GlewInitResult != GLEW_OK);
     if (err2) {
-        std::cout << "ERROR::GLEW_INITIALIZATION_FALIED" << std::endl;
+        std::cout << "ERROR::GLEW_INITIALIZATION_FAILED" << std::endl;
         std::cout << glewGetErrorString(GlewInitResult) << std::endl;
     }
 

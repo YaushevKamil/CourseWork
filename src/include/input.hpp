@@ -9,15 +9,15 @@
 
 extern Camera *camera;
 
-extern GLfloat last_mouse_xoffset;
-extern GLfloat last_mouse_yoffset;
+extern GLfloat lastMouseXOffset;
+extern GLfloat lastMouseYOffset;
 
 extern bool keys[1024];
 extern bool firstMouse;
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void mouseCallback(GLFWwindow* window, double xpos, double ypos);
-void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);
+void mouseCallback(GLFWwindow* window, double xPos, double yPos);
+void scrollCallback(GLFWwindow* window, double xOffset, double yOffset);
 
 struct Input {
 public:
