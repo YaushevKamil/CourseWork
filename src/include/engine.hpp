@@ -7,7 +7,7 @@
 #include "light.hpp"
 #include "shader.hpp"
 #include "window.hpp"
-#include "world.hpp"
+//#include "world.hpp"
 
 class Engine {
 public:
