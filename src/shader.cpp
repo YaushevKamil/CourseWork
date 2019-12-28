@@ -1,8 +1,8 @@
 #include "include/shader.hpp"
 
-Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath) {
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
     char infoLog[512];
-    GLuint vertexShader, fragmentShader, geometryShader = 0;
+    GLuint vertexShader, fragmentShader = 0;
 
     id = glCreateProgram();
 
@@ -11,11 +11,6 @@ Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geo
 
     fragmentShader = compile(fragmentPath, GL_FRAGMENT_SHADER, infoLog);
     glAttachShader(id, fragmentShader);
-
-    if (geometryPath != "") {
-        geometryShader = compile(geometryPath, GL_GEOMETRY_SHADER, infoLog);
-        glAttachShader(id, geometryShader);
-    }
 
     glLinkProgram(id);
 
@@ -27,11 +22,10 @@ Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geo
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-    if (geometryPath != "") glDeleteShader(geometryShader);
 }
 
-GLuint Shader::compile(std::string path, GLenum type, char *infoLog) {
-    GLuint shader = glCreateShader(type);;
+GLuint Shader::compile(const std::string& path, GLenum type, char *infoLog) {
+    GLuint shader = glCreateShader(type);
     std::ifstream source;
     source.exceptions (std::ifstream::failbit | std::ifstream::badbit);
     try {
@@ -44,17 +38,19 @@ GLuint Shader::compile(std::string path, GLenum type, char *infoLog) {
         glShaderSource(shader, 1, &charStr, nullptr);
         glCompileShader(shader);
     } catch (const std::ifstream::failure &e) {
-        std::cout << "CAUGHT_ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << e.what() << std::endl;
+        std::cout << "CAUGHT_ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << e.what() << std::endl;
     }
 
     int success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-        std::cout << "ERROR::SHADER::" << (type == GL_VERTEX_SHADER   ? "VERTEX"   :
-                                           type == GL_FRAGMENT_SHADER ? "FRAGMENT" :
-                                           "GEOMETRY");
-        std::cout << "::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::" << (
+                type == GL_VERTEX_SHADER ?
+                "VERTEX"   :
+                "FRAGMENT"
+            );
+        std::cout << "::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
     }
     return shader;
 }
