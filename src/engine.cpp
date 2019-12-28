@@ -6,7 +6,7 @@ bool Engine::init(const char* configName) {
     bool err2 = createWindow();
     setupShader();
     setupCamera();
-    setupLight();
+//    setupLight();
     setupInput();
 //    createWorld();
 
@@ -97,9 +97,9 @@ Engine::~Engine() {
     delete window;
     delete input;
     delete camera;
-    delete light;
+//    delete light;
 //    delete world;
-    delete botShader;
+//    delete botShader;
     delete planeShader;
     delete skyboxShader;
     delete terrainShader;

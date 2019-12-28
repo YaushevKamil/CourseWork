@@ -38,7 +38,7 @@ GLuint Shader::compile(const std::string& path, GLenum type, char *infoLog) {
         glShaderSource(shader, 1, &charStr, nullptr);
         glCompileShader(shader);
     } catch (const std::ifstream::failure &e) {
-        std::cout << "CAUGHT_ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << e.what() << std::endl;
+        std::cout << "CAUGHT_ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ " << e.what() << std::endl;
     }
 
     int success;
