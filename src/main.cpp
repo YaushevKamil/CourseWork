@@ -1,4 +1,5 @@
 #include <iostream>
+#include "include/engine.hpp"
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -7,7 +8,7 @@ int main(int argc, char **argv) {
     }
     char* configPath = argv[1];
 
-    Engine engine;
+    Engine engine{};
     if (!engine.init(configPath)) {
         std::cout << "ERROR::ENGINE_INITIALIZATION_FAILED" << std::endl;
         return -1;
