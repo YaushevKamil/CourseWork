@@ -1,6 +1,18 @@
 #include <iostream>
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: main <json_config_path>" << std::endl;
+        return -1;
+    }
+    char* configPath = argv[1];
+
+    Engine engine;
+    if (!engine.init(configPath)) {
+        std::cout << "ERROR::ENGINE_INITIALIZATION_FAILED" << std::endl;
+        return -1;
+    }
+    engine.startGame();
+
     return 0;
 }
