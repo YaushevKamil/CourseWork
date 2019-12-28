@@ -6,9 +6,9 @@ bool Engine::init(const char* configName) {
     bool err2 = createWindow();
     setupShader();
     setupCamera();
-//    setupLight();
+    setupLight();
     setupInput();
-//    createWorld();
+    createWorld();
 
     return err1 && err2;
 }
@@ -65,14 +65,14 @@ void Engine::setupInput() {
     input = new Input(window->window, camera);
 }
 
-//void Engine::createWorld() {
-////    world = new World(config,
-////                        terrainShader,
-////                        botShader,
-////                        planeShader,
-////                        skyboxShader,
-////                        &accumulation);
-//}
+void Engine::createWorld() {
+    world = new World(config,
+                        terrainShader,
+                        botShader,
+                        planeShader,
+                        skyboxShader,
+                        &accumulation);
+}
 
 void Engine::startGame() {
     while (!glfwWindowShouldClose(window->window)) {
@@ -85,7 +85,7 @@ void Engine::startGame() {
 
         input->processInput(&deltaTime);
         camera->updateViewProjMatrix();
-//        world->draw();
+        world->draw();
 
         glfwSwapBuffers(window->window);
         glfwPollEvents();
@@ -99,7 +99,7 @@ Engine::~Engine() {
     delete camera;
 //    delete light;
 //    delete world;
-//    delete botShader;
+    delete botShader;
     delete planeShader;
     delete skyboxShader;
     delete terrainShader;

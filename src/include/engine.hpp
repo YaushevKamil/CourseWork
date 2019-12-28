@@ -7,7 +7,7 @@
 #include "light.hpp"
 #include "shader.hpp"
 #include "window.hpp"
-//#include "world.hpp"
+#include "world.hpp"
 
 class Engine {
 public:
@@ -25,7 +25,7 @@ private:
 
     Camera*     camera;
     Light*      light;
-//    World*      world;
+    World*      world;
 
     Shader* botShader;
     Shader* planeShader;
@@ -38,7 +38,7 @@ private:
     void setupCamera();
     void setupLight();
     void setupInput();
-//    void createWorld();
+    void createWorld();
 };
 
 #endif // ENGINE_HPP

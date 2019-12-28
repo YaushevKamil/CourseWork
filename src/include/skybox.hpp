@@ -5,7 +5,7 @@
 
 class Skybox {
 public:
-    Skybox(GLuint texture, Shader *shader);
+    Skybox(GLuint texture, Shader* shader);
     ~Skybox();
     void draw();
 private:
@@ -13,7 +13,7 @@ private:
     GLuint  VBO;
     GLuint  EBO;
     GLuint  texture;
-    Shader *shader;
+    Shader* shader;
 };
 
 #endif // SKYBOX_HPP
