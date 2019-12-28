@@ -16,21 +16,21 @@ public:
     void startGame();
 private:
     GLfloat accumulation;
-    GLfloat delta_time;
-    GLfloat last_frame;
+    GLfloat deltaTime;
+    GLfloat lastFrame;
 
-    JSONConfig* m_config;
-    Window*     m_window;
-    Input*      m_input;
+    JSONConfig* config;
+    Window*     window;
+    Input*      input;
 
     Camera*     m_camera;
-    Light*      m_light;
-    World*      m_world;
+    Light*      light;
+//    World*      m_world;
 
-    Shader* bot_shader;
-    Shader* plane_shader;
-    Shader* skybox_shader;
-    Shader* terrain_shader;
+    Shader* botShader;
+    Shader* planeShader;
+    Shader* skyboxShader;
+    Shader* terrainShader;
 
     bool createWindow();
     bool readConfig(const char* configName);
@@ -38,7 +38,7 @@ private:
     void setupCamera();
     void setupLight();
     void setupInput();
-    void createWorld();
+//    void createWorld();
 };
 
 #endif // ENGINE_HPP

@@ -8,99 +8,99 @@ bool Engine::init(const char* configName) {
     setupCamera();
     setupLight();
     setupInput();
-    createWorld();
+//    createWorld();
 
     return err1 && err2;
 }
 
 bool Engine::readConfig(const char* configName) {
-    m_config = new JSONConfig(configName);
-    bool err = !m_config->readConfig();
+    config = new JSONConfig(configName);
+    bool err = !config->readConfig();
     if (err) {
-        std::cout << "ERROR::CONFIG_READ_FALIED" << std::endl;
-        delete m_config;
+        std::cout << "ERROR::CONFIG_READ_FAILED" << std::endl;
+        delete config;
     }
     return !err;
 }
 
 bool Engine::createWindow() {
-    m_window = new Window(m_config);
-    bool err = !m_window->init();
+    window = new Window(config);
+    bool err = !window->init();
     if (err) {
-        std::cout << "ERROR::WINDOW_INITIALIZATION_FALIED" << std::endl;
-        delete m_window;
+        std::cout << "ERROR::WINDOW_INITIALIZATION_FAILED" << std::endl;
+        delete window;
     }
 
     return !err;
 }
 
 void Engine::setupShader() {
-    bot_shader     = new Shader(m_config->bot_vs,     m_config->bot_fs);
-    plane_shader   = new Shader(m_config->plane_vs,   m_config->plane_fs);
-    skybox_shader  = new Shader(m_config->skybox_vs,  m_config->skybox_fs);
-    terrain_shader = new Shader(m_config->terrain_vs, m_config->terrain_fs);
+    botShader     = new Shader(config->bot_vs, config->bot_fs);
+    planeShader   = new Shader(config->plane_vs, config->plane_fs);
+    skyboxShader  = new Shader(config->skybox_vs, config->skybox_fs);
+    terrainShader = new Shader(config->terrain_vs, config->terrain_fs);
 }
 
 void Engine::setupCamera() {
-    m_camera = new Camera(m_config->window_width,
-                          m_config->window_height,
+    m_camera = new Camera(config->window_width,
+                          config->window_height,
                           glm::vec3(0.0f, 3.0f, 6.0f),
-                          terrain_shader,
-                          bot_shader,
-                          plane_shader,
-                          skybox_shader);
+                          terrainShader,
+                          botShader,
+                          planeShader,
+                          skyboxShader);
 }
 
 void Engine::setupLight() {
-    m_light = new Light(m_config->light_position,
-                        m_config->light_ambient,
-                        m_config->light_diffuse,
-                        m_config->light_specular,
-                        terrain_shader,
-                        plane_shader,
-                        bot_shader);
+    light = new Light(config->light_position,
+                      config->light_ambient,
+                      config->light_diffuse,
+                      config->light_specular,
+                      terrainShader,
+                      planeShader,
+                      botShader);
 }
 
 void Engine::setupInput() {
-    m_input = new Input(m_window->window, m_camera);
+    input = new Input(window->window, m_camera);
 }
 
-void Engine::createWorld() {
-//    m_world = new World(m_config,
-//                        terrain_shader,
-//                        bot_shader,
-//                        plane_shader,
-//                        skybox_shader,
-//                        &accumulation);
-}
+//void Engine::createWorld() {
+////    m_world = new World(config,
+////                        terrainShader,
+////                        botShader,
+////                        planeShader,
+////                        skyboxShader,
+////                        &accumulation);
+//}
 
 void Engine::startGame() {
-    while (!glfwWindowShouldClose(m_window->window)) {
+    while (!glfwWindowShouldClose(window->window)) {
         GLfloat current_frame = glfwGetTime();
-        delta_time = current_frame - last_frame;
-        last_frame = current_frame;
-        accumulation += delta_time;
+        deltaTime = current_frame - lastFrame;
+        lastFrame = current_frame;
+        accumulation += deltaTime;
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        m_input->processInput(&delta_time);
+        input->processInput(&deltaTime);
         m_camera->updateViewProjMatrix();
-        m_world->draw();
+//        m_world->draw();
 
-        glfwSwapBuffers(m_window->window);
+        glfwSwapBuffers(window->window);
         glfwPollEvents();
     }
 }
 
 Engine::~Engine() {
-    delete m_config;
-    delete m_window;
-    delete m_input;
+    delete config;
+    delete window;
+    delete input;
     delete m_camera;
-    delete m_light;
-    delete m_world;
-    delete bot_shader;
-    delete plane_shader;
-    delete skybox_shader;
-    delete terrain_shader;
+    delete light;
+//    delete m_world;
+    delete botShader;
+    delete planeShader;
+    delete skyboxShader;
+    delete terrainShader;
 }
