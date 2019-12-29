@@ -14,6 +14,22 @@
 #include <sstream>
 #include <string>
 
+struct Cell {
+    Cell();
+    Cell(GLchar ground, GLchar entity);
+    GLchar ground;
+    GLchar entity;
+};
+
+struct Level {
+    Level();
+    Level(std::string name, GLuint width, GLuint height);
+    bool add(GLuint i, GLuint j, GLchar g, GLchar e);
+    std::string name;
+    GLuint width, height;
+    Cell** arr;
+};
+
 struct JSONConfig {
     JSONConfig(const char* configName);
     bool readConfig();
@@ -49,6 +65,12 @@ struct JSONConfig {
     std::string back_side_texture;
 
     // Models
+    std::string platform_grass;
+    std::string platform_ice;
+    std::string platform_plastic;
+    std::string platform_slate;
+    std::string platform_spring;
+    std::string platform_wood;
     std::string bot;
     std::string plane;
     std::string grass;
@@ -60,6 +82,9 @@ struct JSONConfig {
     glm::vec4 light_ambient;
     glm::vec4 light_diffuse;
     glm::vec4 light_specular;
+
+    // Levels
+    std::vector<Level> levels;
 };
 
 #endif  // JSON_CONFIG_HPP

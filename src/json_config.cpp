@@ -48,6 +48,12 @@ bool JSONConfig::readConfig() {
     back_side_texture   = json_tree.get<std::string>("skybox.texture.back");
 
     // Models
+    platform_grass   = json_tree.get<std::string>("model.platform_grass");
+    platform_ice     = json_tree.get<std::string>("model.platform_ice");
+    platform_plastic = json_tree.get<std::string>("model.platform_plastic");
+    platform_slate   = json_tree.get<std::string>("model.platform_slate");
+    platform_spring  = json_tree.get<std::string>("model.platform_spring");
+    platform_wood    = json_tree.get<std::string>("model.platform_wood");
     bot     = json_tree.get<std::string>("model.bot");
     plane   = json_tree.get<std::string>("model.plane");
     grass   = json_tree.get<std::string>("model.grass");
@@ -73,5 +79,64 @@ bool JSONConfig::readConfig() {
                                json_tree.get<GLfloat>("light.specular.G"),
                                json_tree.get<GLfloat>("light.specular.B"),
                                json_tree.get<GLfloat>("light.specular.A"));
+
+    BOOST_FOREACH(boost::property_tree::ptree::value_type &v,
+            json_tree.get_child("levels")) {
+        std::string name = v.second.get<std::string>("name");
+        GLuint size = v.second.get<GLuint>("size");
+        levels.push_back(Level(name, size, size));
+        GLuint i = 0;
+        BOOST_FOREACH(boost::property_tree::ptree::value_type &table,
+                v.second.get_child("table")) {
+            GLuint j = 0;
+            BOOST_FOREACH(boost::property_tree::ptree::value_type &row,
+                    table.second.get_child("")) {
+                GLchar ground = row.second.get<std::string>("g")[0];
+                GLchar entity = row.second.get<std::string>("e")[0];
+                levels.back().add(i, j, ground, entity);
+                //std::cout << ground << " " << entity << std::endl;
+                j++;
+            }
+            i++;
+        }
+        std::cout << "Ground:" << std::endl;
+        for (Level level : levels) {
+            for (GLuint l = 0; l < level.width; l++) {
+                for (GLuint j = 0; j < level.height; j++) {
+                    std::cout << level.arr[l][j].ground << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+        std::cout << "Entity:" << std::endl;
+        for (Level level : levels) {
+            for (GLuint l = 0; l < level.width; l++) {
+                for (GLuint j = 0; j < level.height; j++) {
+                    std::cout << level.arr[l][j].entity << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+    }
+
+    return true;
+}
+
+Cell::Cell() : ground('E'), entity('E') {}
+Cell::Cell(GLchar ground, GLchar entity)
+        : ground(ground), entity(entity) {}
+
+Level::Level() {}
+Level::Level(std::string name, GLuint width, GLuint height) :
+        name(name), width(width), height(height) {
+    arr = new Cell* [width];
+    for (GLuint i = 0; i < width; i++) {
+        arr[i] = new Cell[height];
+    }
+}
+
+bool Level::add(GLuint i, GLuint j, GLchar g, GLchar e) {
+    if ((i < 0 || i >= width) || (j < 0 || j > height)) return false;
+    arr[i][j] = Cell(g, e);
     return true;
 }

@@ -30,6 +30,12 @@
         }
     },
     "model": {
+        "platform_grass":   "terrain/platform_grass/platform_grass.obj",
+        "platform_ice":     "terrain/platform_grass/platform_ice.obj",
+        "platform_plastic": "terrain/platform_grass/platform_plastic.obj",
+        "platform_slate":   "terrain/platform_grass/platform_slate.obj",
+        "platform_spring":  "terrain/platform_grass/platform_spring.obj",
+        "platform_wood":    "terrain/platform_grass/platform_wood.obj",
         "bot":     "resources/spider/Spider.obj",
         "plane":   "resources/terrain/Plane/Plane.obj",
         "grass":   "resources/terrain/Bushes/Bush3.3.obj",
@@ -60,5 +66,19 @@
             "B": "0.8",
             "A": "0.9"
         }
-    }
+    },
+    "levels": [
+        {
+            "name": "level_1",
+            "size": 6,
+            "table": [
+                [{"g":"G","e":"P"},{"g":"S","e":"E"},{"g":"G","e":"E"},{"g": "S","e":"E"},{"g":"G","e":"E"},{"g":"S","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}]
+            ]
+        }
+    ]
 }
