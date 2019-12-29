@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "json_config.hpp"
-//#include "table.hpp"
+#include "table.hpp"
 #include "texture.hpp"
 
 //#include "bot.hpp"
@@ -28,7 +28,7 @@ public:
 private:
     GLfloat *accumulation;
 
-//    Table* table;
+    Table* table;
 
     Skybox* skybox;
 //    Obstacle* plane;
@@ -36,14 +36,14 @@ private:
 //    std::vector<Bot*> bots;
 //    std::vector<Obstacle*> obstacles;
 
-//    void loadTable(JSONConfig* config);
+    void loadTable(JSONConfig* config);
     void loadSkybox(JSONConfig* config, Shader *shader);
 //    void genereateLife(JSONConfig* config,
 //                       Shader* plane_shader,
 //                       Shader* terrain_shader,
 //                       Shader* bot_shader);
 //
-//    void fillPlane(JSONConfig* config, Shader* shader);
+    void fillGround(JSONConfig* config, Shader* shader);
 //    void fillGrass(JSONConfig* config, Shader* shader);
 //    void fillObstacle(JSONConfig* config, Shader* shader);
 //    void searchModels(std::vector<std::string> *models, std::string path);
@@ -58,8 +58,8 @@ private:
 //    void generateGrass();
 //    void toStep();
 //    void WarOrLive();
-//    void moveBot(Cell* from, Cell* to, GLuint i, GLuint j);
-//    void feed(Organism* bot, Cell* curr);
+//    void moveBot(FieldCell* from, FieldCell* to, GLuint i, GLuint j);
+//    void feed(Organism* bot, FieldCell* curr);
 };
 
 #endif // WORLD_HPP

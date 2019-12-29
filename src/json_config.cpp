@@ -84,7 +84,7 @@ bool JSONConfig::readConfig() {
             json_tree.get_child("levels")) {
         std::string name = v.second.get<std::string>("name");
         GLuint size = v.second.get<GLuint>("size");
-        levels.push_back(Level(name, size, size));
+        levels.push_back(LevelData(name, size, size));
         GLuint i = 0;
         BOOST_FOREACH(boost::property_tree::ptree::value_type &table,
                 v.second.get_child("table")) {
@@ -100,7 +100,7 @@ bool JSONConfig::readConfig() {
             i++;
         }
         std::cout << "Ground:" << std::endl;
-        for (Level level : levels) {
+        for (LevelData level : levels) {
             for (GLuint l = 0; l < level.width; l++) {
                 for (GLuint j = 0; j < level.height; j++) {
                     std::cout << level.arr[l][j].ground << " ";
@@ -109,7 +109,7 @@ bool JSONConfig::readConfig() {
             }
         }
         std::cout << "Entity:" << std::endl;
-        for (Level level : levels) {
+        for (LevelData level : levels) {
             for (GLuint l = 0; l < level.width; l++) {
                 for (GLuint j = 0; j < level.height; j++) {
                     std::cout << level.arr[l][j].entity << " ";
@@ -122,21 +122,21 @@ bool JSONConfig::readConfig() {
     return true;
 }
 
-Cell::Cell() : ground('E'), entity('E') {}
-Cell::Cell(GLchar ground, GLchar entity)
+FieldCell::FieldCell() : ground('E'), entity('E') {}
+FieldCell::FieldCell(GLchar ground, GLchar entity)
         : ground(ground), entity(entity) {}
 
-Level::Level() {}
-Level::Level(std::string name, GLuint width, GLuint height) :
+LevelData::LevelData() {}
+LevelData::LevelData(std::string name, GLuint width, GLuint height) :
         name(name), width(width), height(height) {
-    arr = new Cell* [width];
+    arr = new FieldCell* [width];
     for (GLuint i = 0; i < width; i++) {
-        arr[i] = new Cell[height];
+        arr[i] = new FieldCell[height];
     }
 }
 
-bool Level::add(GLuint i, GLuint j, GLchar g, GLchar e) {
+bool LevelData::add(GLuint i, GLuint j, GLchar g, GLchar e) {
     if ((i < 0 || i >= width) || (j < 0 || j > height)) return false;
-    arr[i][j] = Cell(g, e);
+    arr[i][j] = FieldCell(g, e);
     return true;
 }

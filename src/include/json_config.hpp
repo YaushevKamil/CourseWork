@@ -14,20 +14,20 @@
 #include <sstream>
 #include <string>
 
-struct Cell {
-    Cell();
-    Cell(GLchar ground, GLchar entity);
+struct FieldCell {
+    FieldCell();
+    FieldCell(GLchar ground, GLchar entity);
     GLchar ground;
     GLchar entity;
 };
 
-struct Level {
-    Level();
-    Level(std::string name, GLuint width, GLuint height);
+struct LevelData {
+    LevelData();
+    LevelData(std::string name, GLuint width, GLuint height);
     bool add(GLuint i, GLuint j, GLchar g, GLchar e);
     std::string name;
     GLuint width, height;
-    Cell** arr;
+    FieldCell** arr;
 };
 
 struct JSONConfig {
@@ -84,7 +84,7 @@ struct JSONConfig {
     glm::vec4 light_specular;
 
     // Levels
-    std::vector<Level> levels;
+    std::vector<LevelData> levels;
 };
 
 #endif  // JSON_CONFIG_HPP

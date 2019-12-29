@@ -1,4 +1,5 @@
 #include "include/world.hpp"
+#include "include/def.hpp"
 
 World::World(JSONConfig* config,
              Shader* terrain_shader,
@@ -7,13 +8,13 @@ World::World(JSONConfig* config,
              Shader* skybox_shader,
              GLfloat *accumulation) :
         accumulation(accumulation) {
-//    loadTable(config);
+    loadTable(config);
     loadSkybox(config, skybox_shader);
 //    genereateLife(config, plane_shader, terrain_shader, bot_shader);
 }
 
 World::~World() {
-//    delete table;
+    delete table;
     delete skybox;
 //    delete plane;
 //    delete grass;
@@ -21,9 +22,10 @@ World::~World() {
 //    for (Bot* bot : bots) delete bot;
 }
 
-//void World::loadTable(JSONConfig* config) {
-//    table = new Table(config->tableSize, config->tableSize);
-//}
+void World::loadTable(JSONConfig* config) {
+    prefix_unused(config);
+    table = new Table(6, 6);
+}
 
 void World::loadSkybox(JSONConfig* config, Shader *shader) {
     std::string faces[] = {
@@ -41,14 +43,14 @@ void World::loadSkybox(JSONConfig* config, Shader *shader) {
 //                          Shader* plane_shader,
 //                          Shader* terrain_shader,
 //                          Shader* bot_shader) {
-//    fillPlane   (config, plane_shader);
+//    fillg   (config, plane_shader);
 //    fillGrass   (config, terrain_shader);
 //    fillObstacle(config, terrain_shader);
 //    fillObstacle(config, terrain_shader);
 //    fillBot     (config, bot_shader);
 //}
 
-//void World::fillPlane(JSONConfig* config, Shader* shader) {
+void World::fillGround(JSONConfig* config, Shader* shader) {
 //    plane = new Obstacle(config->plane, shader, config->tableSize, config->cellSize);
 //    for (GLuint i = 0; i < config->tableSize; i++) {
 //        for (GLuint j = 0; j < config->tableSize; j++) {
@@ -56,7 +58,7 @@ void World::loadSkybox(JSONConfig* config, Shader *shader) {
 //        }
 //    }
 //    plane->loadMatrices();
-//}
+}
 
 //void World::fillGrass(JSONConfig* config, Shader* shader) {
 //    grass = new Obstacle(config->grass, shader, config->tableSize, config->cellSize);
@@ -156,7 +158,7 @@ void World::draw() {
 //    }
 //}
 //
-//void World::moveBot(Cell* from, Cell* to, GLuint i, GLuint j) {
+//void World::moveBot(FieldCell* from, FieldCell* to, GLuint i, GLuint j) {
 //    bots[from->bot->getColony()]->remove(from->bot->X(), from->bot->Y());
 //    from->bot->step();
 //    from->bot->setCoords(i, j);
@@ -178,7 +180,7 @@ void World::draw() {
 //    for (GLuint i = 0; i < table->width; i++) {
 //        for (GLuint j = 0; j < table->height; j++) {
 ////             std::cout << "i: " << i << " j: " << j << std::endl;
-//            Cell* curr  = &(table->table[i][j]);
+//            FieldCell* curr  = &(table->table[i][j]);
 //            if (curr->isBot && curr->bot->getStep()) {
 ////                 std::cout << "Baha - tarakan, nahoi" << std::endl;
 //                curr->bot->mutate();
@@ -192,26 +194,26 @@ void World::draw() {
 //                        break;
 //                    case 1:
 //                        if (i != 0 && table->table[i-1][j].isEmpty()) {
-//                            Cell* left = &(table->table[i-1][j]);
+//                            FieldCell* left = &(table->table[i-1][j]);
 //                            moveBot(curr, left, i-1, j);
 //                        }
 //                        break;
 //                    case 2:
 //                        if (i != table->width-1 && table->table[i+1][j].isEmpty()) {
-//                            Cell* right = &(table->table[i+1][j]);
+//                            FieldCell* right = &(table->table[i+1][j]);
 //                            moveBot(curr, right, i+1, j);
 //                        }
 //                        break;
 //                    case 3:
 //                        if (j != 0 && table->table[i][j-1].isEmpty()) {
-//                            Cell* down = &(table->table[i][j-1]);
+//                            FieldCell* down = &(table->table[i][j-1]);
 //                            moveBot(curr, down, i, j-1);
 ////                             std::cout << "Move beatch" << std::endl;
 //                        }
 //                        break;
 //                    case 4:
 //                        if (j != table->width-1 && table->table[i][j+1].isEmpty()) {
-//                            Cell* up = &(table->table[i][j+1]);
+//                            FieldCell* up = &(table->table[i][j+1]);
 //                            moveBot(curr, up, i, j+1);
 //                        }
 //                        break;
@@ -222,7 +224,7 @@ void World::draw() {
 ////     std::cout << "Second" << std::endl;
 //    for (GLuint i = 0; i < table->width; i++) {
 //        for (GLuint j = 0; j < table->height; j++) {
-//            Cell* curr = &(table->table[i][j]);
+//            FieldCell* curr = &(table->table[i][j]);
 //            if (!curr->isBot) continue;
 //            curr->bot->setStep(true);
 //            curr->bot->setAge(curr->bot->getAge()+1);
@@ -265,7 +267,7 @@ void World::draw() {
 //        for (GLuint i = 0; i < 2; i++) {
 //            GLuint colony = a->getColony();
 //            if (i == 0) {
-//                Cell* curr = &(table->table[a->X()][a->Y()]);
+//                FieldCell* curr = &(table->table[a->X()][a->Y()]);
 //                curr->isBot = true;
 //                curr->bot = new Organism(colony,
 //                                         generation,
@@ -276,7 +278,7 @@ void World::draw() {
 //                                         a->X(), a->Y());
 //                addBot(curr->bot->getColony(), a->X(), a->Y());
 //            } else {
-//                Cell* curr = &(table->table[b->X()][b->Y()]);
+//                FieldCell* curr = &(table->table[b->X()][b->Y()]);
 //                curr->isBot = true;
 //                curr->bot = new Organism(colony,
 //                                         generation,                                                                                                         a->getLifetime(),
@@ -311,10 +313,10 @@ void World::draw() {
 //                strength   = b->getInitStrength();
 //            }
 //
-//            Cell* down  = &(table->table[motherX][motherY-1]);
-//            Cell* up    = &(table->table[motherX][motherY+1]);
-//            Cell* left  = &(table->table[motherX-1][motherY]);
-//            Cell* right = &(table->table[motherX+1][motherY]);
+//            FieldCell* down  = &(table->table[motherX][motherY-1]);
+//            FieldCell* up    = &(table->table[motherX][motherY+1]);
+//            FieldCell* left  = &(table->table[motherX-1][motherY]);
+//            FieldCell* right = &(table->table[motherX+1][motherY]);
 //
 //            if (motherY && down->isEmpty()) {
 //                down->isBot = true;
@@ -367,11 +369,11 @@ void World::draw() {
 //bool World::checkNeighbor(Organism *bot) {
 //    GLuint i = bot->X();
 //    GLuint j = bot->Y();
-//    Cell* curr  = &(table->table[i][j]);
-//    Cell* left  = &(table->table[i-1][j]);
-//    Cell* right = &(table->table[i+1][j]);
-//    Cell* down  = &(table->table[i][j-1]);
-//    Cell* up    = &(table->table[i][j+1]);
+//    FieldCell* curr  = &(table->table[i][j]);
+//    FieldCell* left  = &(table->table[i-1][j]);
+//    FieldCell* right = &(table->table[i+1][j]);
+//    FieldCell* down  = &(table->table[i][j-1]);
+//    FieldCell* up    = &(table->table[i][j+1]);
 //    if (bot->getEnergy() > 0) {
 //        if (j == 0 && down->isBot) {
 //            fightBots(curr->bot, down->bot);
@@ -389,22 +391,15 @@ void World::draw() {
 //    }
 //    return true;
 //}
-//
-//void World::feed(Organism* bot, Cell* curr) {
-//    GLint energy = bot->getEnergy() + bot->getStrength();
-//    bot->setEnergy(energy);
-//    delete curr->grass;
-//    curr->isGrass = false;
-//}
-//
+
 //void World::checkGrass(Organism* bot) {
 //    GLuint i = bot->X();
 //    GLuint j = bot->Y();
 //
-//    Cell* left  = &(table->table[i-1][j]);
-//    Cell* right = &(table->table[i+1][j]);
-//    Cell* down  = &(table->table[i][j-1]);
-//    Cell* up    = &(table->table[i][j+1]);
+//    FieldCell* left  = &(table->table[i-1][j]);
+//    FieldCell* right = &(table->table[i+1][j]);
+//    FieldCell* down  = &(table->table[i][j-1]);
+//    FieldCell* up    = &(table->table[i][j+1]);
 //
 //    if (j == 0 && down->isGrass)
 //        feed(bot, down);
@@ -416,56 +411,3 @@ void World::draw() {
 //        feed(bot, right);
 //}
 //
-//void World::generateGrass() {
-//    std::vector<std::pair<GLuint, GLuint>> empty;
-//    for (GLuint i = 0; i < table->width; i++) {
-//        for (GLuint j = 0; j < table->width; j++) {
-//            Cell* curr = &(table->table[i][j]);
-//            if (curr->isEmpty()) empty.emplace_back(i, j);
-//        }
-//    }
-//
-//    GLuint grassCount = table->width/12 > empty.size() ?
-//                        empty.size() :
-//                        table->width/12;
-//
-//    std::mt19937 gen(glfwGetTime());
-//    if (grassCount == table->width / 12) {
-//        for (GLuint i = 0; i < grassCount; i++) {
-//            std::uniform_int_distribution<>  uid(0, empty.size() - 1);
-//            GLuint ind = uid(gen);
-//            GLuint x = empty[ind].first;
-//            GLuint y = empty[ind].second;
-//            Cell* curr = &(table->table[x][y]);
-//            curr->isGrass = true;
-//            curr->grass = new Grass(x, y);
-//            empty.erase(empty.begin() + ind);
-//        }
-//    } else {
-//        for (GLuint i = 0; i < grassCount; i++) {
-//            GLuint x = empty[i].first;
-//            GLuint y = empty[i].second;
-//            Cell* curr = &(table->table[x][y]);
-//            curr->isGrass = true;
-//            curr->grass = new Grass(x, y);
-//        }
-//    }
-//}
-//void World::WarOrLive() {
-//    int hungry;
-//    for (GLuint i = 0; i < table->width; i++) {
-//        for (GLuint j = 0; j < table->height; j++) {
-//            Cell* curr = &(table->table[i][j]);
-//            if (curr->isBot) {
-//                hungry = curr->bot->getMaxEnergy() / 3;
-//                if (curr->bot->getEnergy() > hungry && checkNeighbor(curr->bot)) {
-//                    if (curr->bot->getEnergy() <= 0) {
-//                        bots[curr->bot->getColony()]->remove(i, j);
-//                        delete curr->bot;
-//                        curr->isBot = false;
-//                    }
-//                } else checkGrass(curr->bot);
-//            }
-//        }
-//    }
-//}

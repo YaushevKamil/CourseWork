@@ -4,11 +4,13 @@
 bool Engine::init(const char* configName) {
     bool err1 = readConfig(configName);
     bool err2 = createWindow();
-    setupShader();
-    setupCamera();
-    setupLight();
-    setupInput();
-    createWorld();
+    if (err1 && err2) {
+        setupShader();
+        setupCamera();
+        setupLight();
+        setupInput();
+        createWorld();
+    }
 
     return err1 && err2;
 }
@@ -97,8 +99,8 @@ Engine::~Engine() {
     delete window;
     delete input;
     delete camera;
-//    delete light;
-//    delete world;
+    delete light;
+    delete world;
     delete botShader;
     delete planeShader;
     delete skyboxShader;
