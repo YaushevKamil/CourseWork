@@ -12,9 +12,30 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mode);
 int main() {
     // TODO: read screen size from a file (remove constants)
     GLFWwindow* window = getGLFWWindow(GAME_WIDTH, GAME_HEIGHT);
-    Game::GetInstance()->Initialize(GAME_WIDTH, GAME_HEIGHT);
 
-    prefix_unused(window);
+    std::shared_ptr<Game> game = Game::GetInstance();
+    game->Initialize(GAME_WIDTH, GAME_HEIGHT);
+
+    float currentFrame;
+    float deltaTime;
+    float lastFrame = 0.0f;
+
+    while (!glfwWindowShouldClose(window) && game->GetActive()) {
+        currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        game->Update(deltaTime);
+        game->Render();
+
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
+    Log::Message("Cleaning all resources", LOG_INIT);
+    game->CleanUp();
+    glfwTerminate();
+
     return 0;
 }
 
