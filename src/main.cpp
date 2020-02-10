@@ -21,10 +21,13 @@ int main() {
     float lastFrame = 0.0f;
 
     while (!glfwWindowShouldClose(window) && game->GetActive()) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
+        game->ProcessInput(deltaTime);
         game->Update(deltaTime);
         game->Render();
 
