@@ -1,7 +1,6 @@
 #include <math.h>
 
 #include "camera.hpp"
-#include "../math/trigonometry/conversions.hpp"
 
 namespace Engine {
     Camera::Camera() {}
