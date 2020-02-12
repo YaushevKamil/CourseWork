@@ -127,7 +127,7 @@ add_executable(
 #        src/game/components/actor.cpp
         src/game/communication/FastDelegate.h
         src/game/communication/IEventData.h
-        src/game/communication/EventManager.h
+        src/game/communication/EventManager.hpp
         src/game/communication/EventManager.cpp
         src/game/application/event_startLevel.hpp
         src/game/application/event_startLevel.cpp
@@ -144,6 +144,6 @@ add_executable(
         src/engine/resources/font_loader.hpp
         src/engine/resources/font_loader.cpp
         src/engine/shading/font.hpp
-        src/engine/shading/font.cpp)
+        src/engine/shading/font.cpp src/engine/renderer/text_renderer.cpp)
 
 target_link_libraries(CourseWork ${OpenGlLinkers})
