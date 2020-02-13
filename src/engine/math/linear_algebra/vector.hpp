@@ -216,7 +216,7 @@ namespace math {
             data = { x, y, z, w };
         }
         vector(const vector<2, T>& xy, const vector<2, T>& zw) {
-            data = { xy.x, xy.y, zw.z, zw.w };
+            data = { xy.x, xy.y, zw.x, zw.y };
         }
         vector(const vector<3, T>& xyz, const T& w) {
             data = { xyz.x, xyz.y, xyz.z, w };

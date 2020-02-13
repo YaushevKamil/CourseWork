@@ -1,7 +1,9 @@
 #ifndef RESOURCES_FONT_LOADER_HPP
 #define RESOURCES_FONT_LOADER_HPP
 
-#include "resources.hpp"
+#include <fstream>
+#include <sstream>
+
 #include "../shading/font.hpp"
 
 namespace Engine {

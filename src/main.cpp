@@ -14,7 +14,7 @@ int main() {
     GLFWwindow* window = getGLFWWindow(GAME_WIDTH, GAME_HEIGHT);
 
     std::shared_ptr<Game> game = Game::GetInstance();
-    game->Initialize(GAME_WIDTH, GAME_HEIGHT);
+    game->Initialize(window, GAME_WIDTH, GAME_HEIGHT);
 
     float currentFrame;
     float deltaTime;

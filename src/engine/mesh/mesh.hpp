@@ -47,6 +47,7 @@ namespace Engine {
         void SetTangents(std::vector<math::vec3> tangents, std::vector<math::vec3> bitangents);
 
         void Finalize(bool interleaved = true);
+        void Clear();
     };
 }
 

@@ -3,6 +3,10 @@
 namespace Engine {
     Font::Font() : m_Width(0), m_Height(0) {}
 
+    Font::Font(Texture *fontAtlas, std::map<char, CharInfo> charInfo, int charSize, int width, int height) {
+        Load(fontAtlas, charInfo, charSize, width, height);
+    }
+
     void Font::Load(Texture* fontAtlas, std::map<char, CharInfo> charInfo, int charSize, int width, int height) {
         m_FontAtlas = fontAtlas;
         m_CharInfo = charInfo;

@@ -17,11 +17,11 @@ namespace Engine {
 
     class Resources {
     private:
+        static std::map<unsigned int, Font>        m_Fonts;
         static std::map<unsigned int, Shader>      m_Shaders;
         static std::map<unsigned int, Texture>     m_Textures;
         static std::map<unsigned int, TextureCube> m_TexturesCube;
         static std::map<unsigned int, SceneNode*>  m_Meshes;
-        static std::map<unsigned int, Font>        m_Fonts;
 //        static MapLoader                           m_MapLoader;
     public:
 
@@ -30,6 +30,9 @@ namespace Engine {
     public:
         static void Init();
         static void Clean();
+
+        static Font*        LoadFont(std::string name, std::string path);
+        static Font*        GetFont(std::string name);
 
         static Shader*      LoadShader(std::string name, std::string vsPath, std::string fsPath, std::vector<std::string> defines = std::vector<std::string>());
         static Shader*      GetShader(std::string name);
@@ -42,9 +45,6 @@ namespace Engine {
 
         static SceneNode*  LoadMesh(Renderer* renderer, std::string name, std::string path);
         static SceneNode*  GetMesh(std::string name);
-
-        static Font* LoadFont(std::string name, std::string path);
-        static Font* GetFont(std::string name);
     };
 }
 

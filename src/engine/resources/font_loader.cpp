@@ -1,6 +1,4 @@
-#include <fstream>
-#include <sstream>
-
+#include "resources.hpp"
 #include "font_loader.hpp"
 
 namespace Engine {

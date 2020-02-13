@@ -2,7 +2,12 @@
 
 namespace Engine {
     FlyCamera::FlyCamera(math::vec3 position, math::vec3 forward, math::vec3 up) :
-    Camera(position, forward, up), /*Yaw(-90.0f), Pitch(0.0f)*/Yaw(333.013f), Pitch(-36.8901f), m_WorldUp(Up), m_TargetPosition(position) {
+            Camera(position, forward, up),
+            /*Yaw(-90.0f), Pitch(0.0f)*/
+            Yaw(333.013f),    m_TargetYaw(Yaw),
+            Pitch(-36.8901f), m_TargetPitch(Pitch),
+            m_WorldUp(Up),
+            m_TargetPosition(position) {
         // TODO: delete forward, up vectors (use default values)
     }
 
@@ -14,6 +19,7 @@ namespace Engine {
         Pitch    = math::lerp(Pitch, m_TargetPitch, math::clamp01(dt * Damping * 2.0f));
 
         math::vec3 newForward;
+        std::cout << Pitch << std::endl;
         newForward.x = cos(0.0174533 * Pitch) * cos(0.0174533 * Yaw);
         newForward.y = sin(0.0174533 * Pitch);
         newForward.z = cos(0.0174533 * Pitch) * sin(0.0174533 * Yaw);

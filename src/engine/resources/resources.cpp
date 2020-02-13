@@ -1,9 +1,9 @@
 #include "resources.hpp"
 
+#include "font_loader.hpp"
 #include "shader_loader.hpp"
 #include "texture_loader.hpp"
 #include "mesh_loader.hpp"
-#include "font_loader.hpp"
 
 #include "../scene/scene.hpp"
 #include "../scene/scene_node.hpp"
@@ -13,6 +13,7 @@
 #include <vector>
 
 namespace Engine {
+    std::map<unsigned int, Font>        Resources::m_Fonts        = std::map<unsigned int, Font>();
     std::map<unsigned int, Shader>      Resources::m_Shaders      = std::map<unsigned int, Shader>();
     std::map<unsigned int, Texture>     Resources::m_Textures     = std::map<unsigned int, Texture>();
     std::map<unsigned int, TextureCube> Resources::m_TexturesCube = std::map<unsigned int, TextureCube>();
@@ -23,21 +24,48 @@ namespace Engine {
     }
 
     void Resources::Clean() {
-        for(auto it = m_Meshes.begin(); it != m_Meshes.end(); it++) {
+        for (auto it = m_Meshes.begin(); it != m_Meshes.end(); it++) {
             delete it->second;
+        }
+    }
+
+    Font* Resources::LoadFont(std::string name, std::string path) {
+        unsigned int id = SID(name);
+
+        if (Resources::m_Fonts.find(id) != Resources::m_Fonts.end()) {
+            return &Resources::m_Fonts[id];
+        }
+
+        Log::Message("Loading font file at: " + path + ".", LOG_INIT);
+        Font font = FontLoader::LoadFont(name, path);
+        Log::Message(name + " successfully loaded at: " + path + ".", LOG_INIT);
+
+        Resources::m_Fonts[id] = font;
+        return &Resources::m_Fonts[id];
+    }
+
+    Font* Resources::GetFont(std::string name) {
+        unsigned int id = SID(name);
+
+        if (Resources::m_Fonts.find(id) != Resources::m_Fonts.end()) {
+            return &Resources::m_Fonts[id];
+        } else {
+            Log::Message("Requested font: " + name + " not found!", LOG_WARNING);
+            return nullptr;
         }
     }
 
     Shader* Resources::LoadShader(std::string name, std::string vsPath, std::string fsPath, std::vector<std::string> defines) {
         unsigned int id = SID(name);
 
-        Log::Message("Shader: " + name + "\n" + vsPath + "\n" + fsPath, LOG_INIT);
-
         if (Resources::m_Shaders.find(id) != Resources::m_Shaders.end()) {
             return &Resources::m_Shaders[id];
         }
 
+        Log::Message("Loading shader: " + name + "at: " + vsPath + ", " + fsPath + ".", LOG_INIT);
         Shader shader = ShaderLoader::Load(name, vsPath, fsPath, defines);
+        Log::Message(name + " successfully loaded at: " + vsPath + ", " + fsPath + ".", LOG_INIT);
+
         Resources::m_Shaders[id] = shader;
         return &Resources::m_Shaders[id];
     }
@@ -61,9 +89,7 @@ namespace Engine {
         }
 
         Log::Message("Loading texture file at: " + path + ".", LOG_INIT);
-
         Texture texture = TextureLoader::LoadTexture(path, target, format, srgb);
-
         Log::Message("Successfully loaded: " + path + ".", LOG_INIT);
 
         if (texture.Width > 0) {
@@ -86,7 +112,7 @@ namespace Engine {
         Texture texture = TextureLoader::LoadHDRTexture(path);
         if (texture.Width > 0) {
             Resources::m_Textures[id] = texture;
-            Log::Message("Succesfully loaded: " + path + ".", LOG_INIT);
+            Log::Message("Successfully loaded: " + path + ".", LOG_INIT);
             return &Resources::m_Textures[id];
         } else {
             Log::Message("Requested HDR texture: " + name + " not found!", LOG_WARNING);
@@ -148,29 +174,6 @@ namespace Engine {
             return Scene::MakeSceneNode(Resources::m_Meshes[id]);
         } else {
             Log::Message("Requested mesh: " + name + " not found!", LOG_WARNING);
-            return nullptr;
-        }
-    }
-
-    Font *Resources::LoadFont(std::string name, std::string path) {
-        unsigned int id = SID(name);
-
-        if (Resources::m_Fonts.find(id) != Resources::m_Fonts.end()) {
-            return &Resources::m_Fonts[id];
-        }
-
-        Font font = FontLoader::LoadFont(name, path);
-        Resources::m_Fonts[id] = font;
-        return &Resources::m_Fonts[id];
-    }
-
-    Font *Resources::GetFont(std::string name) {
-        unsigned int id = SID(name);
-
-        if (Resources::m_Fonts.find(id) != Resources::m_Fonts.end()) {
-            return &Resources::m_Fonts[id];
-        } else {
-            Log::Message("Requested font: " + name + " not found!", LOG_WARNING);
             return nullptr;
         }
     }

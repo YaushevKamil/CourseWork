@@ -1,8 +1,8 @@
 #ifndef RESOURCES_SHADER_LOADER_HPP
 #define RESOURCES_SHADER_LOADER_HPP
 
-#include <string>
 #include <fstream>
+#include <string>
 
 #include "../shading/shader.hpp"
 

@@ -173,4 +173,13 @@ namespace Engine {
         }
         glBindVertexArray(0);
     }
+
+    void Mesh::Clear() {
+        Positions.clear();
+        UV.clear();
+        Normals.clear();
+        Tangents.clear();
+        Bitangents.clear();
+        Indices.clear();
+    }
 }

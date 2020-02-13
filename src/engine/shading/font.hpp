@@ -25,6 +25,7 @@ namespace Engine {
         std::map<char, CharInfo> m_CharInfo;
     public:
         Font();
+        Font(Texture* fontAtlas, std::map<char, CharInfo> charInfo, int charSize, int width, int height);
         void Load(Texture* fontAtlas, std::map<char, CharInfo> charInfo, int charSize, int width, int height);
 
         const std::map<char, CharInfo>& GetCharInfo();
