@@ -1,0 +1,84 @@
+{
+    "window": {
+        "windowName":   "Game",
+        "screenWidth":  "2560",
+        "screenHeight": "1080",
+        "windowWidth":  "2560",
+        "windowHeight": "1080",
+        "isResizable":  "false",
+        "tableSize":    "32",
+        "cellSize":     "4"
+    },
+    "shader": {
+        "bot_vs":     "resources/GLSL/bot.vs",
+        "bot_fs":     "resources/GLSL/bot.fs",
+        "plane_vs":   "resources/GLSL/plane.vs",
+        "plane_fs":   "resources/GLSL/plane.fs",
+        "skybox_vs":  "resources/GLSL/skybox.vs",
+        "skybox_fs":  "resources/GLSL/skybox.fs",
+        "terrain_vs": "resources/GLSL/terrain.vs",
+        "terrain_fs": "resources/GLSL/terrain.fs"
+    },
+    "skybox": {
+        "texture": { 
+            "right":  "resources/skybox/siege/right.jpg",
+            "left":   "resources/skybox/siege/left.jpg",
+            "top":    "resources/skybox/siege/top.jpg",
+            "bottom": "resources/skybox/siege/bottom.jpg",
+            "front":  "resources/skybox/siege/front.jpg",
+            "back":   "resources/skybox/siege/back.jpg"
+        }
+    },
+    "model": {
+        "platform_grass":   "terrain/platform_grass/platform_grass.obj",
+        "platform_ice":     "terrain/platform_grass/platform_ice.obj",
+        "platform_plastic": "terrain/platform_grass/platform_plastic.obj",
+        "platform_slate":   "terrain/platform_grass/platform_slate.obj",
+        "platform_spring":  "terrain/platform_grass/platform_spring.obj",
+        "platform_wood":    "terrain/platform_grass/platform_wood.obj",
+        "bot":     "resources/spider/Spider.obj",
+        "plane":   "resources/terrain/Plane/Plane.obj",
+        "grass":   "resources/terrain/Bushes/Bush3.3.obj",
+        "stones":  "resources/terrain/Stones/",
+        "trees":   "resources/terrain/Trees/"
+    },
+    "light": {
+        "position": {
+            "X": "-1",
+            "Y": "0.577",
+            "Z": "0.839"
+        },
+        "ambient": {
+            "R": "0.6",
+            "G": "0.6",
+            "B": "0.6",
+            "A": "0.9"
+        },
+        "diffuse": {
+            "R": "1",
+            "G": "1",
+            "B": "0.965",
+            "A": "0.9"
+        },
+        "specular": {
+            "R": "1",
+            "G": "0.8",
+            "B": "0.8",
+            "A": "0.9"
+        }
+    },
+    "levels": [
+        {
+            "name": "level_1",
+            "size": 6,
+            "table": [
+                [{"g":"G","e":"P"},{"g":"S","e":"E"},{"g":"G","e":"E"},{"g": "S","e":"E"},{"g":"G","e":"E"},{"g":"S","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}],
+                [{"g":"E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"},{"g": "E","e":"E"},{"g":"E","e":"E"},{"g":"E","e":"E"}]
+            ]
+        }
+    ]
+}
